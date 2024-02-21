@@ -14,7 +14,8 @@
 #include <memory>
 #include <stdexcept>
 #include <array>
+#include <unordered_map>
 
-std::vector<std::string> getProcessList();
+std::unordered_map<std::string, pid_t> getProcessMap();
 
-extern std::vector<std::string> ProcessList;
+extern std::unordered_map<std::string, pid_t> ProcessList;

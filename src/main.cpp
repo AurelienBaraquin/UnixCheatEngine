@@ -7,10 +7,11 @@
 //  ░▒▓██████▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓████████▓▒░▒▓█▓▒░░▒▓█▓▒░ ░▒▓█▓▒░          ░▒▓████████▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓████████▓▒░ 
 
 #include "Tracer.hpp"
+#include "Process.hpp"
 #include <raylib-cpp.hpp>
 #include <iostream>
 
-#define GRAPHICAL
+// #define GRAPHICAL
 
 int main(int ac, char **av) {
     // CheatEngine::Memory::Tracer tracer(std::atoi(av[1]));
@@ -26,6 +27,10 @@ int main(int ac, char **av) {
     // } else {
     //     std::cout << "Failed to detach from process" << std::endl;
     // }
+    std::cout << "process:" << std::endl;
+    for (auto process : ProcessList) {
+        std::cout << process.first << " " << process.second << std::endl;
+    }
 
 #ifdef GRAPHICAL
     raylib::Window w(800, 450, "Hello, Raylib!");
