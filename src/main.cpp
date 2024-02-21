@@ -30,6 +30,11 @@ int main(int ac, char **av) {
     std::cout << "process:" << std::endl;
     for (auto process : ProcessList) {
         std::cout << process.first << " " << process.second << std::endl;
+    CheatEngine::Memory::MemoryParser parser(48514);
+    parser.filterRegions("r-xp");
+    auto regions = parser.getRegions();
+    for (auto &region : regions) {
+        std::cout << "Start: " << std::hex << region.startAddr << " End: " << std::hex << region.endAddr << " Permissions: " << region.permissions << " Pathname: " << region.pathname << std::endl;
     }
 
 #ifdef GRAPHICAL
