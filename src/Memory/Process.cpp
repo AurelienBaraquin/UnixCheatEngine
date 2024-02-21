@@ -8,7 +8,7 @@
 
 #include "Process.hpp"
 
-std::vector<std::string> getProcessList() {
+std::vector<std::string> CheatEngine::Memory::getProcessList() {
     std::vector<std::string> processList;
     std::array<char, 128> buffer;
     std::unique_ptr<FILE, decltype(&pclose)> pipe(popen("ps -A", "r"), pclose);
@@ -21,4 +21,4 @@ std::vector<std::string> getProcessList() {
     return processList;
 }
 
-std::vector<std::string> ProcessList = getProcessList();
+std::vector<std::string> ProcessList = CheatEngine::Memory::getProcessList();

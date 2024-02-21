@@ -15,6 +15,13 @@
 #include <stdexcept>
 #include <array>
 
+namespace CheatEngine::Memory {
+
 std::vector<std::string> getProcessList();
 
+/**
+ * @brief A vector of strings representing the list of processes.
+ */
 extern std::vector<std::string> ProcessList;
+
+}
