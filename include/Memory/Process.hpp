@@ -16,16 +16,13 @@
 #include <array>
 #include <unordered_map>
 
-std::unordered_map<std::string, pid_t> getProcessMap();
 
-extern std::unordered_map<std::string, pid_t> ProcessList;
 namespace CheatEngine::Memory {
 
-std::vector<std::string> getProcessList();
-
+std::unordered_map<std::string, pid_t> getProcessMap();
 /**
  * @brief A vector of strings representing the list of processes.
  */
-extern std::vector<std::string> ProcessList;
+extern std::unordered_map<std::string, pid_t> ProcessList;
 
 }

@@ -35,19 +35,6 @@ std::vector<std::string> split(const std::string &s, char delimiter) {
     return cleanProcessList(tokens);
 }
 
-std::vector<std::string> CheatEngine::Memory::getProcessList() {
-    std::vector<std::string> processList;
-    std::array<char, 128> buffer;
-    std::unique_ptr<FILE, decltype(&pclose)> pipe(popen("ps -A", "r"), pclose);
-    if (!pipe) {
-        throw std::runtime_error("popen() failed!");
-    }
-    while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
-        processList.push_back(buffer.data());
-    }
-    return processList;
-}
-
 std::unordered_map<std::string, pid_t> getProcessMap() {
     std::unordered_map<std::string, pid_t> processMap;
     std::array<char, 128> buffer;
