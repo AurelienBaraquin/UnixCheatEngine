@@ -8,6 +8,7 @@
 
 #include "Tracer.hpp"
 #include "Process.hpp"
+#include "MemoryParser.hpp"
 #include <raylib-cpp.hpp>
 #include <iostream>
 
@@ -28,8 +29,9 @@ int main(int ac, char **av) {
     //     std::cout << "Failed to detach from process" << std::endl;
     // }
     std::cout << "process:" << std::endl;
-    for (auto process : ProcessList) {
+    for (auto process : CheatEngine::Memory::ProcessList) {
         std::cout << process.first << " " << process.second << std::endl;
+    }
     CheatEngine::Memory::MemoryParser parser(48514);
     parser.filterRegions("r-xp");
     auto regions = parser.getRegions();

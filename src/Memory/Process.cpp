@@ -10,6 +10,8 @@
 #include <iostream>
 #include <sstream>
 
+namespace CheatEngine::Memory {
+
 std::vector<std::string> cleanProcessList(std::vector<std::string> processList) {
     std::vector<std::string> cleanProcessList;
     for (auto process : processList) {
@@ -54,3 +56,5 @@ std::unordered_map<std::string, pid_t> getProcessMap() {
 }
 
 std::unordered_map<std::string, pid_t> ProcessList = getProcessMap();
+
+}
