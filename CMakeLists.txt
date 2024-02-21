@@ -5,11 +5,13 @@ find_package(raylib REQUIRED)
 
 add_subdirectory(raylib-cpp)
 
-include_directories(include)
 include_directories(include/Memory)
+include_directories(include/Graphical)
+include_directories(include)
 
-file(GLOB SOURCES "src/*.cpp")
 file(GLOB MEMORY_SOURCES "src/Memory/*.cpp")
+file(GLOB MEMORY_SOURCES "src/Graphical/*.cpp")
+file(GLOB SOURCES "src/*.cpp")
 
 
 add_executable(${PROJECT_NAME} ${SOURCES} ${MEMORY_SOURCES})

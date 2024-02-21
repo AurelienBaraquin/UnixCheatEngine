@@ -6,15 +6,17 @@
 // ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░ ░▒▓█▓▒░          ░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░        
 //  ░▒▓██████▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓████████▓▒░▒▓█▓▒░░▒▓█▓▒░ ░▒▓█▓▒░          ░▒▓████████▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓████████▓▒░ 
 
-#include "Tracer.hpp"
 #include "Process.hpp"
+#include "Tracer.hpp"
 #include "MemoryParser.hpp"
-#include <raylib-cpp.hpp>
+#include "App.hpp"
 #include <iostream>
 
-// #define GRAPHICAL
+#define GRAPHICAL
+
 
 int main(int ac, char **av) {
+    std::unordered_map<std::string, pid_t> ProcessList = CheatEngine::Memory::getProcessMap();
     // CheatEngine::Memory::Tracer tracer(std::atoi(av[1]));
 
     // if (tracer.attach()) {
@@ -28,26 +30,21 @@ int main(int ac, char **av) {
     // } else {
     //     std::cout << "Failed to detach from process" << std::endl;
     // }
+    // 
     std::cout << "process:" << std::endl;
-    for (auto process : CheatEngine::Memory::ProcessList) {
+    for (auto process : ProcessList) {
         std::cout << process.first << " " << process.second << std::endl;
     }
-    CheatEngine::Memory::MemoryParser parser(48514);
-    parser.filterRegions("r-xp");
-    auto regions = parser.getRegions();
-    for (auto &region : regions) {
-        std::cout << "Start: " << std::hex << region.startAddr << " End: " << std::hex << region.endAddr << " Permissions: " << region.permissions << " Pathname: " << region.pathname << std::endl;
-    }
+    // CheatEngine::Memory::MemoryParser parser(48514);
+    // parser.filterRegions("r-xp");
+    // auto regions = parser.getRegions();
+    // for (auto &region : regions) {
+    //     std::cout << "Start: " << std::hex << region.startAddr << " End: " << std::hex << region.endAddr << " Permissions: " << region.permissions << " Pathname: " << region.pathname << std::endl;
+    // }
 
 #ifdef GRAPHICAL
-    raylib::Window w(800, 450, "Hello, Raylib!");
-
-    while (!w.ShouldClose()) {
-        w.BeginDrawing();
-        w.ClearBackground();
-        raylib::DrawText("Congrats! You created your first window!", 190, 200, 20, (Color)RAYWHITE);
-        w.EndDrawing();
-    }
+    CheatEngine::Graphical::App *app = new CheatEngine::Graphical::App();
+    app->run();
 #endif
 
     return 0;
