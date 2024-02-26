@@ -43,7 +43,7 @@ int main(int ac, char **av) {
     // }
 
 #ifdef GRAPHICAL
-    CheatEngine::Graphical::App *app = new CheatEngine::Graphical::App();
+    CheatEngine::Graphical::App *app = new CheatEngine::Graphical::App({800, 600});
     app->run();
 #endif
 

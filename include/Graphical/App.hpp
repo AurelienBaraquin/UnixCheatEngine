@@ -15,14 +15,20 @@ namespace CheatEngine::Graphical
 {
     class App : public raylib::Window
     {
+
         public:
-            App();
+            App(raylib::Vector2 size);
             ~App();
             void run();
-        
-        private:
-            /* data */
-            std::unique_ptr<raylib::Window> window;
-    };
-} // namespace CheatEngine::Graphical
 
+            raylib::Vector2 winScale;
+
+        private:
+            std::unique_ptr<raylib::Window> window;
+            raylib::Vector2 baseScale;
+
+            float ScaleX(float x) { return x * winScale.x; }
+            float ScaleY(float y) { return y * winScale.y; }
+            void UpdateWinScale();
+    };
+}
