@@ -9,6 +9,7 @@
 #pragma once
 
 #include <raylib-cpp.hpp>
+#include <memory>
 
 namespace CheatEngine::Graphical
 {
@@ -21,6 +22,7 @@ namespace CheatEngine::Graphical
         
         private:
             /* data */
+            std::unique_ptr<raylib::Window> window;
     };
 } // namespace CheatEngine::Graphical
 
