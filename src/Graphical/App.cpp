@@ -30,6 +30,9 @@ void CheatEngine::Graphical::App::run()
             UpdateWinScale();
         window->BeginDrawing();
         window->ClearBackground();
+        DrawText("Hello, world!", ScaleX(190), ScaleY(200), ScaleX(20), LIGHTGRAY);
+        DrawRectangle(ScaleX(0), ScaleY(0), ScaleX(100), ScaleY(100), RED);
+        DrawRectangle(ScaleX(400), ScaleY(0), ScaleX(100), ScaleY(100), RED);
         window->EndDrawing();
     }
 }

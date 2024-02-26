@@ -14,6 +14,9 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
+#include <map>
+
+#include "Tracer.hpp"
 
 namespace CheatEngine::Memory {
 
@@ -79,6 +82,25 @@ public:
         }
         regions.clear();
         regions = filteredRegions;
+    }
+
+    template<typename T>
+    /**
+     * @brief A map container that stores key-value pairs with keys of type long and values of type T.
+     */
+    std::map<long, T> readRegion(MemoryRegion region, Tracer tracer) {
+        std::map<long, T> data;
+        try {
+            tracer.attach();
+            for (long i = region.startAddr; i < region.endAddr; i += sizeof(T)) {
+                T value = tracer.read<T>(i);
+                data[i] = value;
+            }
+            tracer.detach();
+        } catch (std::exception& e) {
+            std::cerr << e.what() << std::endl;
+        }
+        return data;
     }
 
 private:

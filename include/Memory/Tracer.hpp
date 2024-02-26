@@ -38,7 +38,7 @@ namespace CheatEngine::Memory
             long data = ptrace(PTRACE_PEEKDATA, m_pid, address, nullptr);
 
             if (data == -1 && errno != 0)
-                throw std::runtime_error("Failed to read memory");
+                throw std::runtime_error("Failed to read memory at address " + std::to_string(address));
 
             if (std::memcpy(&value, &data, sizeof(T)) == nullptr)
                 throw std::runtime_error("Failed to copy memory");
