@@ -37,7 +37,7 @@ namespace CheatEngine::Memory {
         return cleanProcessList(tokens);
     }
 
-    std::unordered_map<std::string, pid_t> getProcessMap() {
+    std::unordered_map<std::string, pid_t> Process::getProcessMap() {
         std::unordered_map<std::string, pid_t> processMap;
         std::array<char, 128> buffer;
         std::unique_ptr<FILE, decltype(&pclose)> pipe(popen("ps -A", "r"), pclose);

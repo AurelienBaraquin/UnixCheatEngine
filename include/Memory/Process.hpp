@@ -16,8 +16,6 @@
 #include <array>
 #include <unordered_map>
 
-extern std::unordered_map<std::string, pid_t> ProcessList;
-
 namespace CheatEngine::Memory {
 
     /**
@@ -26,9 +24,8 @@ namespace CheatEngine::Memory {
      * 
      * @return A map of process names and their corresponding process IDs.
      */
-    std::unordered_map<std::string, pid_t> getProcessMap();
-    /**
-     * @brief A vector of strings representing the list of processes.
-     */
-
+    class Process {
+        public:
+            static std::unordered_map<std::string, pid_t> getProcessMap();
+    };
 }

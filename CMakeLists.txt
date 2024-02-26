@@ -10,11 +10,11 @@ include_directories(include/Graphical)
 include_directories(include)
 
 file(GLOB MEMORY_SOURCES "src/Memory/*.cpp")
-file(GLOB MEMORY_SOURCES "src/Graphical/*.cpp")
+file(GLOB GRAPHICAL_SOURCES "src/Graphical/*.cpp")
 file(GLOB SOURCES "src/*.cpp")
 
 
-add_executable(${PROJECT_NAME} ${SOURCES} ${MEMORY_SOURCES})
+add_executable(${PROJECT_NAME} ${SOURCES} ${MEMORY_SOURCES} ${GRAPHICAL_SOURCES})
 
 target_link_libraries(${PROJECT_NAME} raylib)
 target_include_directories(${PROJECT_NAME} PRIVATE raylib-cpp/include)

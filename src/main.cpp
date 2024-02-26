@@ -16,7 +16,7 @@
 
 
 int main(int ac, char **av) {
-    std::unordered_map<std::string, pid_t> ProcessList = CheatEngine::Memory::getProcessMap();
+    std::unordered_map<std::string, pid_t> ProcessList = CheatEngine::Memory::Process::getProcessMap();
     // CheatEngine::Memory::Tracer tracer(std::atoi(av[1]));
 
     // if (tracer.attach()) {
