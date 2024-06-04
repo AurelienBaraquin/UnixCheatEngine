@@ -46,12 +46,133 @@ public:
     }
 
     /**
-     * @brief Refreshes the memory regions by clearing the existing regions and loading new memory regions.
+     * @brief Clear the memory regions by clearing the existing regions and loading new memory regions.
      */
-    void refresh() {
+    void clear() {
         regions.clear();
+        data.clear();
         loadMemoryRegions();
     }
+
+    // update all value in data by reading from memory
+    template<typename T>
+    void refresh() {
+        Tracer tracer(pid);
+        for (const auto addr : data) {
+            data[addr.first] = tracer.read<T>(addr.first);
+        }
+    }
+
+    template<typename T>
+    void read() {
+        filterRegions("r");
+        Tracer tracer(pid);
+        for (const auto& region : regions) {
+            std::map<long, T> regionData = readRegion<T>(region, tracer);
+            data.insert(regionData.begin(), regionData.end());
+        }
+    }
+
+    template<typename T>
+    void filterEqual(T value) {
+        std::map<long, T> filteredData;
+        for (const auto& [addr, val] : data) {
+            if (val == value) {
+                filteredData[addr] = val;
+            }
+        }
+        data.clear();
+        data = filteredData;
+    }
+
+    template<typename T>
+    void filterNotEqual(T value) {
+        std::map<long, T> filteredData;
+        for (const auto& [addr, val] : data) {
+            if (val != value) {
+                filteredData[addr] = val;
+            }
+        }
+        data.clear();
+        data = filteredData;
+    }
+
+    template<typename T>
+    void filterGreater(T value) {
+        std::map<long, T> filteredData;
+        for (const auto& [addr, val] : data) {
+            if (val > value) {
+                filteredData[addr] = val;
+            }
+        }
+        data.clear();
+        data = filteredData;
+    }
+
+    template<typename T>
+    void filterLess(T value) {
+        std::map<long, T> filteredData;
+        for (const auto& [addr, val] : data) {
+            if (val < value) {
+                filteredData[addr] = val;
+            }
+        }
+        data.clear();
+        data = filteredData;
+    }
+
+    template<typename T>
+    void filterGreaterEqual(T value) {
+        std::map<long, T> filteredData;
+        for (const auto& [addr, val] : data) {
+            if (val >= value) {
+                filteredData[addr] = val;
+            }
+        }
+        data.clear();
+        data = filteredData;
+    }
+
+    template<typename T>
+    void filterLessEqual(T value) {
+        std::map<long, T> filteredData;
+        for (const auto& [addr, val] : data) {
+            if (val <= value) {
+                filteredData[addr] = val;
+            }
+        }
+        data.clear();
+        data = filteredData;
+    }
+
+    template<typename T>
+    void filterRange(T lower, T upper) {
+        std::map<long, T> filteredData;
+        for (const auto& [addr, val] : data) {
+            if (val >= lower && val <= upper) {
+                filteredData[addr] = val;
+            }
+        }
+        data.clear();
+        data = filteredData;
+    }
+
+    template<typename T>
+    void filterNotRange(T lower, T upper) {
+        std::map<long, T> filteredData;
+        for (const auto& [addr, val] : data) {
+            if (val < lower || val > upper) {
+                filteredData[addr] = val;
+            }
+        }
+        data.clear();
+        data = filteredData;
+    }
+
+private:
+    pid_t pid;
+    std::vector<MemoryRegion> regions;
+    std::map<long, std::vector<unsigned char>> data;
 
     /**
      * @brief Returns the vector of MemoryRegion objects.
@@ -102,10 +223,6 @@ public:
         }
         return data;
     }
-
-private:
-    pid_t pid;
-    std::vector<MemoryRegion> regions;
 
     void loadMemoryRegions() {
         std::ifstream mapsFile("/proc/" + std::to_string(pid) + "/maps");
